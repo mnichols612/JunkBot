@@ -47,10 +47,6 @@
       <Project>{9059af15-380a-4950-8374-a152fbb42ea4}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
-      <Project>{867e7585-81c0-49da-86b9-13a127a61de2}</Project>
-      <Name>EntitiesLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.IO;
-using EntitiesLayer;
 
 namespace DataAccess
 {
+    public interface IConnection
+    {
+        void Connect(string connectionInformation);
+
+        void Disconnect();
+    }
+
     public class IRC : IConnection
     {
         private TcpClient irc;
@@ -70,12 +76,6 @@ namespace DataAccess
         public string Locate(string nick)
         {
             throw new NotImplementedException();
-        }
-
-        //Will update EntitiesLayer.Users.userList by adding users who join and removing users who leave
-        public List<User> GetUsers(List<User> userList)
-        {
-            return userList;
         }
     }
 
