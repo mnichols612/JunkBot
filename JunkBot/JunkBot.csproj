@@ -48,9 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+    <ProjectReference Include="..\BusinessLayer\Plugins.csproj">
       <Project>{fb32bcb6-8248-4aa0-aeef-0880ff63225a}</Project>
-      <Name>BusinessLayer</Name>
+      <Name>Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
