@@ -31,8 +31,15 @@ namespace Plugins
 
             int line = 0, lines = 0;
             Random r = new Random();
+            string file="";
 
-            stream = new FileStream("C:\\Users\\Michael\\Documents\\Visual Studio 2012\\Projects\\JunkBot\\Documents\\Jokes.txt", FileMode.Open);
+            foreach (string f in System.IO.Directory.GetFiles("Documents/"))
+            {
+                if (f == "Jokes.txt")
+                    file = f;
+            }
+
+            stream = new FileStream(file, FileMode.Open);
 
             reader = new StreamReader(stream);
 

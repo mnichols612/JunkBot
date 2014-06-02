@@ -45,7 +45,7 @@ namespace JunkBot
                             writer.WriteLine("PONG"+" "+ex[1]);
                         }
 
-                        if (input.ToLower().StartsWith("locate "))
+                        if (ex[0].ToLower().StartsWith("locate"))
                         {
                             string nick = input.Substring(input.IndexOf(" "));
 
