@@ -31,7 +31,7 @@ namespace Plugins
 
             int line = 0, lines = 0;
             Random r = new Random();
-            string file="";
+            string file = "";
 
             foreach (string f in System.IO.Directory.GetFiles("Documents/"))
             {
