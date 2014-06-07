@@ -31,13 +31,7 @@ namespace Plugins
 
             int line = 0, lines = 0;
             Random r = new Random();
-            string file = "";
-
-            foreach (string f in System.IO.Directory.GetFiles("Documents/"))
-            {
-                if (f == "Jokes.txt")
-                    file = f;
-            }
+            string file = System.IO.Directory.GetFiles("Documents/Jokes.txt").ToString();
 
             stream = new FileStream(file, FileMode.Open);
 
