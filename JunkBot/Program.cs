@@ -45,13 +45,14 @@ namespace JunkBot
                             writer.WriteLine("PONG"+" "+ex[1]);
                         }
 
-                        if (ex[0].ToLower().StartsWith("locate"))
+                        if (ex[0].ToLower().StartsWith("locate")&&ex.Length<3)
                         {
                             string nick = input.Substring(input.IndexOf(" "));
 
                             try
                             {
-                                //Look into how to locate a user's city and state by IP address or a simpler way if there is one.
+                                plugin = new Locator();
+                                plugin.OnMessage();
                             }
                             catch
                             {
