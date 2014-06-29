@@ -33,18 +33,19 @@ namespace JunkBot
 
                 while (true)
                 {
-                    string input = reader.ReadLine();
+                    string input = reader.ReadLine(), output ="";
                     IPlugin plugin;
 
                     while ((input) != null)
                     {
-                        Console.WriteLine(input);
+                        Console.WriteLine("Received: " + input);
 
                         string[] ex = input.Split(' ');
 
                         if (ex[0] == "PING")
                         {
-                            writer.WriteLine("PONG"+" "+ex[1]);
+                            output = "PONG" + " " + ex[1];
+                            writer.WriteLine(output);
                         }
 
                         if (ex[0].ToLower().StartsWith("locate")&&ex.Length<3)
@@ -58,15 +59,18 @@ namespace JunkBot
                             }
                             catch
                             {
-                                Console.WriteLine(nick + " could not be located.");
+                                output = nick + " could not be located.";
+                                writer.WriteLine(output);
                             }
                         }
                         else if (input.ToLower().Contains("joke"))
                         {
                             plugin = new Jokes();
-                            string joke = plugin.OnMessage();
-                            writer.WriteLine(joke);
+                            output = plugin.OnMessage();
+                            writer.WriteLine(output);
                         }
+
+                        Console.WriteLine("Sent: " + output);
                     }
                 }
 
