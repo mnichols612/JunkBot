@@ -24,14 +24,15 @@ namespace JunkBot
                 stream = irc.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
-                writer.WriteLine("USER JunkBot 8 * :CSBot");
-                writer.Flush();
+
                 writer.WriteLine("NICK JunkBot");
+                writer.Flush();
+                writer.WriteLine("USER JunkBot 8 * :CSBot");
                 writer.Flush();
                 writer.WriteLine("JOIN ##DiCrew");
                 writer.Flush();
 
-                string input = reader.ReadLine(), output = "";
+                string input = "", output = "";
 
                 string[] ex = input.Split(' ');
 
@@ -41,11 +42,11 @@ namespace JunkBot
                     writer.WriteLine(output);
                 }
 
-                while (input!=null)
+                while (input != null)
                 {
                     IPlugin plugin;
 
-                    if ((input) != null)
+                    if ((input=reader.ReadLine()) != null)
                     {
                         Console.WriteLine("Received: " + input);
 
@@ -82,13 +83,12 @@ namespace JunkBot
                     }
                 }
 
-                Console.WriteLine(output);
-                System.Threading.Thread.Sleep(10000);
                 //writer.Close() says "unsearchable code" is detected.
                 //need to look into what code it is referring to.
                 writer.Close();
                 reader.Close();
                 irc.Close();
+                Console.ReadLine();
             }
             catch
             {
