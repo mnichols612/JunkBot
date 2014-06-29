@@ -24,45 +24,51 @@ namespace Plugins
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return "Jokes"; }
         }
 
         public string OnMessage()
         {
-
-            string joke = "";
-
-            int line = 0, lines = 0;
-            Random r = new Random();
-            string file = System.IO.Directory.GetFiles("Documents/Jokes.txt").ToString();
-
-            stream = new FileStream(file, FileMode.Open);
-
-            reader = new StreamReader(stream);
-
-            while (reader.ReadLine() != null)
+            try
             {
-                lines++;
-            }
+                string joke = "";
 
-            line = r.Next(0, lines);
-            lines = 0;
-            stream.Position = 0;
-            reader.DiscardBufferedData();
+                int line = 0, lines = 0;
+                Random r = new Random();
+                string file = System.IO.Directory.GetFiles("Documents/Jokes.txt").ToString();
 
-            while (reader.ReadLine() != null)
-            {
-                lines++;
-                if (lines == line)
+                stream = new FileStream(file, FileMode.Open);
+
+                reader = new StreamReader(stream);
+
+                while (reader.ReadLine() != null)
                 {
-                    joke = reader.ReadLine();
-                    break;
+                    lines++;
                 }
+
+                line = r.Next(0, lines);
+                lines = 0;
+                stream.Position = 0;
+                reader.DiscardBufferedData();
+
+                while (reader.ReadLine() != null)
+                {
+                    lines++;
+                    if (lines == line)
+                    {
+                        joke = reader.ReadLine();
+                        break;
+                    }
+                }
+
+                stream.Close();
+
+                return joke;
             }
-
-            stream.Close();
-
-            return joke;
+            catch
+            {
+                return "SKYSOM!!!!!!!!!!!!!!!!!!!!";
+            }
         }
     }
 

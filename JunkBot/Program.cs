@@ -13,31 +13,33 @@ namespace JunkBot
     {
         static void Main(string[] args)
         {
+            TcpClient irc;
+            NetworkStream stream;
+            StreamReader reader;
+            StreamWriter writer;
+
             try
             {
-                TcpClient irc;
-                NetworkStream stream;
-                StreamReader reader;
-                StreamWriter writer;
-
                 irc = new TcpClient("chat.freenode.net", 6667);
                 stream = irc.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
-                writer.WriteLine("USER JunkBot 8 * :C#Bot");
-                writer.Flush();
                 writer.WriteLine("NICK JunkBot");
+                writer.Flush();
+                writer.WriteLine("USER JunkBot 8 * :CSBot");
                 writer.Flush();
                 writer.WriteLine("JOIN ##DiCrew");
                 writer.Flush();
 
                 while (true)
                 {
-                    string input;
+                    string input = reader.ReadLine();
                     IPlugin plugin;
 
-                    while ((input = reader.ReadLine()) != null)
+                    while ((input) != null)
                     {
+                        Console.WriteLine(input);
+
                         string[] ex = input.Split(' ');
 
                         if (ex[0] == "PING")
@@ -62,7 +64,8 @@ namespace JunkBot
                         else if (input.ToLower().Contains("joke"))
                         {
                             plugin = new Jokes();
-                            writer.WriteLine(plugin.OnMessage());
+                            string joke = plugin.OnMessage();
+                            writer.WriteLine(joke);
                         }
                     }
                 }
