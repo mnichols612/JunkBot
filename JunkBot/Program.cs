@@ -13,25 +13,33 @@ namespace JunkBot
     {
         static void Main(string[] args)
         {
-            TcpClient irc;
-            NetworkStream stream;
-            StreamReader reader;
-            StreamWriter writer;
-
             try
             {
+                TcpClient irc;
+                NetworkStream stream;
+                StreamReader reader;
+                StreamWriter writer;
+
                 irc = new TcpClient("chat.freenode.net", 6667);
                 stream = irc.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
-                writer.WriteLine("NICK JunkBot");
-                writer.Flush();
                 writer.WriteLine("USER JunkBot 8 * :CSBot");
+                writer.Flush();
+                writer.WriteLine("NICK JunkBot");
                 writer.Flush();
                 writer.WriteLine("JOIN ##DiCrew");
                 writer.Flush();
 
                 string input = reader.ReadLine(), output = "";
+
+                string[] ex = input.Split(' ');
+
+                if (ex[0] == "PING")
+                {
+                    output = "PONG" + " " + ex[1];
+                    writer.WriteLine(output);
+                }
 
                 while (input!=null)
                 {
@@ -40,8 +48,6 @@ namespace JunkBot
                     if ((input) != null)
                     {
                         Console.WriteLine("Received: " + input);
-
-                        string[] ex = input.Split(' ');
 
                         if (ex[0] == "PING")
                         {
@@ -72,10 +78,12 @@ namespace JunkBot
                         }
 
                         Console.WriteLine("Sent: " + output);
-                        input = null;
+                        input = reader.ReadLine();
                     }
                 }
 
+                Console.WriteLine(output);
+                System.Threading.Thread.Sleep(10000);
                 //writer.Close() says "unsearchable code" is detected.
                 //need to look into what code it is referring to.
                 writer.Close();
