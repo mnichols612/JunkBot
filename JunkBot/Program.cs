@@ -31,12 +31,13 @@ namespace JunkBot
                 writer.WriteLine("JOIN ##DiCrew");
                 writer.Flush();
 
-                while (true)
+                string input = reader.ReadLine(), output = "";
+
+                while (input!=null)
                 {
-                    string input = reader.ReadLine(), output ="";
                     IPlugin plugin;
 
-                    while ((input) != null)
+                    if ((input) != null)
                     {
                         Console.WriteLine("Received: " + input);
 
@@ -71,6 +72,7 @@ namespace JunkBot
                         }
 
                         Console.WriteLine("Sent: " + output);
+                        input = null;
                     }
                 }
 
