@@ -20,6 +20,10 @@ namespace JunkBot
                 StreamReader reader;
                 StreamWriter writer;
 
+                string input = "", output = "";
+
+                string[] ex = input.Split(' ');
+
                 irc = new TcpClient("chat.freenode.net", 6667);
                 stream = irc.GetStream();
                 reader = new StreamReader(stream);
@@ -27,33 +31,37 @@ namespace JunkBot
 
                 writer.WriteLine("NICK JunkBot");
                 writer.Flush();
+
                 writer.WriteLine("USER JunkBot 8 * :CSBot");
                 writer.Flush();
+
+                input = reader.ReadLine();
+
+                if (ex[0].ToUpper() == "PING")
+                {
+                    Console.WriteLine("Received: " + input);
+                    output = "PONG " + ex[1];
+                    writer.WriteLine(output);
+                    Console.WriteLine("Sent: " + output);
+                    writer.Flush();
+                }
+
                 writer.WriteLine("JOIN ##DiCrew");
                 writer.Flush();
-
-                string input = "", output = "";
-
-                string[] ex = input.Split(' ');
-
-                if (ex[0] == "PING")
-                {
-                    output = "PONG" + " " + ex[1];
-                    writer.WriteLine(output);
-                }
 
                 while (input != null)
                 {
                     IPlugin plugin;
 
-                    if ((input=reader.ReadLine()) != null)
+                    if ((input = reader.ReadLine()) != null)
                     {
                         Console.WriteLine("Received: " + input);
 
-                        if (ex[0] == "PING")
+                        if (ex[0].ToUpper() == "PING")
                         {
-                            output = "PONG" + " " + ex[1];
+                            output = "PONG " + ex[1];
                             writer.WriteLine(output);
+                            writer.Flush();
                         }
 
                         if (ex[0].ToLower().StartsWith("locate")&&ex.Length<3)
@@ -74,12 +82,13 @@ namespace JunkBot
                         else if (input.ToLower().Contains("joke"))
                         {
                             plugin = new Jokes();
-                            output = plugin.OnMessage();
+                            output = "PRIVMSG ##DiCrew :" + plugin.OnMessage();
                             writer.WriteLine(output);
+                            writer.Flush();
                         }
 
                         Console.WriteLine("Sent: " + output);
-                        input = reader.ReadLine();
+                        output = "";
                     }
                 }
 
