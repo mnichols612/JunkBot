@@ -51,12 +51,11 @@ namespace Plugins
                 stream.Position = 0;
                 reader.DiscardBufferedData();
 
-                while (reader.ReadLine() != null)
+                while ((joke = reader.ReadLine()) != null)
                 {
                     lines++;
                     if (lines == line)
                     {
-                        joke = reader.ReadLine();
                         break;
                     }
                 }
