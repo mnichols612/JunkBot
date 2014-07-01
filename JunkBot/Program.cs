@@ -37,7 +37,7 @@ namespace JunkBot
 
                 input = reader.ReadLine();
 
-                if (ex[0].ToUpper() == "PING")
+                if (ex[0] == "PING")
                 {
                     Console.WriteLine("Received: " + input);
                     output = "PONG " + ex[1];
@@ -55,9 +55,10 @@ namespace JunkBot
 
                     if ((input = reader.ReadLine()) != null)
                     {
+                        ex = input.Split(' ');
                         Console.WriteLine("Received: " + input);
 
-                        if (ex[0].ToUpper() == "PING")
+                        if (ex[0] == "PING")
                         {
                             output = "PONG " + ex[1];
                             writer.WriteLine(output);
