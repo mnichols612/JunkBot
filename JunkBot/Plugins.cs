@@ -29,13 +29,14 @@ namespace Plugins
 
         public string OnMessage()
         {
+            string joke = "", file="";
+
             try
             {
-                string joke = "";
 
                 int line = 0, lines = 0;
                 Random r = new Random();
-                string file = System.IO.Directory.GetFiles("Documents/Jokes.txt").ToString();
+                file = System.IO.Directory.GetFiles("Documents/Jokes.txt").ToString();
 
                 stream = new FileStream(file, FileMode.Open);
 
@@ -64,9 +65,11 @@ namespace Plugins
 
                 return joke;
             }
-            catch
+            catch(Exception e)
             {
-                return "SKYSOM!!!!!!!!!!!!!!!!!!!!";
+                Console.Out.WriteLine(file);
+                Console.Out.WriteLine(e.StackTrace);
+                return "I'm not feeling funny at the moment.";
             }
         }
     }

@@ -22,8 +22,6 @@ namespace JunkBot
 
                 string input = "", output = "";
 
-                string[] ex = input.Split(' ');
-
                 irc = new TcpClient("chat.freenode.net", 6667);
                 stream = irc.GetStream();
                 reader = new StreamReader(stream);
@@ -36,6 +34,8 @@ namespace JunkBot
                 writer.Flush();
 
                 input = reader.ReadLine();
+
+                string[] ex = input.Split(' ');
 
                 if (ex[0] == "PING")
                 {
